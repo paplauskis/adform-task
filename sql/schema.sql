@@ -1,11 +1,11 @@
 CREATE TABLE category (
     id SERIAL PRIMARY KEY,
-    category_name VARCHAR(100) NOT NULL
+    category_name VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE product (
     id SERIAL PRIMARY KEY,
-    "name" TEXT NOT NULL,
+    "name" TEXT UNIQUE NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     category_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

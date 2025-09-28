@@ -12,3 +12,10 @@ SELECT
 	('country', 'Lithuania', 
 	'city', (ARRAY['Vilnius', 'Kaunas', 'Klaipeda', 'Siauliai', 'Panevezys', 'Plunge'])[ceil(random()*6)])
 FROM generate_series(1, 10000) AS s(i);
+
+INSERT INTO category (category_name) VALUES
+('Electronics'),
+('Clothing'),
+('Furniture'),
+('Toys'),
+('Books');

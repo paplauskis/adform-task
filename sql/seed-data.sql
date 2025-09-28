@@ -19,3 +19,13 @@ INSERT INTO category (category_name) VALUES
 ('Furniture'),
 ('Toys'),
 ('Books');
+
+WITH c_count AS (
+	SELECT COUNT(*) AS category_count FROM category
+)
+INSERT INTO product ("name", price, category_id)
+SELECT
+	'Product-' || i,
+	ROUND((random() * 500)::numeric, 2),
+	(1 + FLOOR(random() * category_count))::int
+FROM generate_series(1, 8000) AS s(i), c_count;

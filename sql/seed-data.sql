@@ -37,3 +37,16 @@ INSERT INTO "order" (customer_id)
 SELECT
     (1 + FLOOR(random() * customer_count))::int
 FROM generate_series(1, 100000) AS s(i), c_count;
+
+INSERT INTO order_item (quantity, product_id, order_id)
+SELECT
+    (1 + FLOOR(random() * 50))::int AS quantity,
+    p.id AS product_id,
+    o.id AS order_id
+FROM "order" o
+JOIN LATERAL (
+    SELECT "id"
+    FROM product
+    ORDER BY random()
+    LIMIT (1 + FLOOR(random() * 100))::int
+) p ON TRUE;

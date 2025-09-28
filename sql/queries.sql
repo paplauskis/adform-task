@@ -46,7 +46,22 @@ UNION ALL
     WHERE oi.order_id = $1
 );
 
+-- parameterized query that gets number of orders and total amount from every (or selected) city
+PREPARE order_report(text) AS
+SELECT 
+    c.details->>'city' AS customer_city,
+    COUNT(DISTINCT o.id) AS number_of_orders,
+    SUM(p.price * oi.quantity) AS total_amount
+FROM customer c
+JOIN "order" o ON o.customer_id = c.id 
+JOIN order_item oi ON oi.order_id = o.id
+JOIN product p ON p.id = oi.product_id
+WHERE ($1 IS NULL OR c.details->>'city' = $1)
+GROUP BY c.details->>'city'
+ORDER BY number_of_orders DESC;
+
 -- queries can be executed like this
-EXECUTE get_order_items(10);
-EXECUTE get_order_total_amount(10);
-EXECUTE get_order_invoice(10);
+EXECUTE get_order_items(10); -- or any order id can be used
+EXECUTE get_order_total_amount(10); -- or any order id can be used
+EXECUTE get_order_invoice(10); -- or any order id can be used
+EXECUTE order_report(NULL); -- to filter by city, pass in city name

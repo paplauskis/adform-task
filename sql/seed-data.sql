@@ -38,6 +38,9 @@ SELECT
     (1 + FLOOR(random() * customer_count))::int
 FROM generate_series(1, 100000) AS s(i), c_count;
 
+-- added random_products_count function, because random() in JOIN subquery did not 
+-- generate random results, they were the same for every execution
+-- for example, every order always had 35 products
 INSERT INTO order_item (quantity, product_id, order_id)
 SELECT
     (1 + FLOOR(random() * 50))::int AS quantity,
@@ -48,5 +51,5 @@ JOIN LATERAL (
     SELECT "id"
     FROM product
     ORDER BY random()
-    LIMIT (1 + FLOOR(random() * 100))::int
+    LIMIT random_products_count(o.id)
 ) p ON TRUE;

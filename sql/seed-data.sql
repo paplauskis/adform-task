@@ -29,3 +29,11 @@ SELECT
 	ROUND((random() * 500)::numeric, 2),
 	(1 + FLOOR(random() * category_count))::int
 FROM generate_series(1, 8000) AS s(i), c_count;
+
+WITH c_count AS (
+	SELECT COUNT(*) AS customer_count FROM customer
+)
+INSERT INTO "order" (customer_id)
+SELECT
+    (1 + FLOOR(random() * customer_count))::int
+FROM generate_series(1, 100000) AS s(i), c_count;

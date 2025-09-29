@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:15
+    container_name: adform-task
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pirmadienis
+      POSTGRES_DB: adform-task
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+
+volumes:
+  db_data:

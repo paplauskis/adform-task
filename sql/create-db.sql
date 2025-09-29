@@ -1,1 +1,0 @@
-CREATE DATABASE "adform-task" WITH ENCODING = 'UTF8'

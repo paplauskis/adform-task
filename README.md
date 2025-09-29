@@ -1,3 +1,6 @@
+## Prerequisites
+- Docker
+
 ## How to run
 - ```git clone https://https://github.com/paplauskis/adform-task.git```
 - ```cd adform-task```
@@ -38,3 +41,4 @@
 - Tried speeding up queries by adding indexes to some rows, but there weren't big increases in speed; PostgreSQL automatically added indexes itself to some rows
 
 - My thougts when doing this task were to make sure all tables, data seeded, queries were working correcly and performance was not awful before jumping into other sub-tasks.  
+
